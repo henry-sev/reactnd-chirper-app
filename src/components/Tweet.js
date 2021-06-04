@@ -4,11 +4,19 @@ import { formatDate, formatTweet } from '../utils/helpers'
 import {TiArrowBackOutline} from 'react-icons/ti'
 import {TiHeartOutline} from 'react-icons/ti'
 import {TiHeartFullOutline} from 'react-icons/ti'
+import { handleToggleTweet } from '../actions/tweets'
 
 class Tweet extends Component {
   handleLike = (e) => {
     e.preventDefault();
-    //todo: handle like
+
+    const {dispatch, tweet, authedUser} = this.props
+    this.props.dispatch(handleToggleTweet({
+      //recap: 这里可以直接写authedUser，但是不能直接写tweet.id
+      id: tweet.id,
+      hasLiked: tweet.hasLiked,
+      authedUser,
+    }))
   }
 
   toParent = (e, id) => {
